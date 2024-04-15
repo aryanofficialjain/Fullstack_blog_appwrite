@@ -24,9 +24,30 @@ export class Authservice {
             throw error
         }
     }
-    async login(){}
-    async getCurrenctUser(){}
-    async logout(){}
+    async login({email, password}){
+        try {
+            return await this.account.createEmailPasswordSession(email, password);
+        } catch (error) {
+            throw error 
+        }
+    }
+    async getCurrenctUser(){
+        try {
+            return await this.account.get()
+        } catch (error) {
+            console.log("appwrite service :: getcurrentuser() :: ", error)
+        }
+        return null
+    }
+
+
+    async logout(){
+        try {
+            await this.account.deleteSessions()
+        } catch (error) {
+            console.log("Appwrite service :: logout() :: ", error);
+        }
+    }
 
 
 }
